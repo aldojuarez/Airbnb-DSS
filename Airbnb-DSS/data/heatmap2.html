@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Create a heatmap layer</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id="map"></div>
+
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYWxkb2p1YXJleiIsImEiOiJja3E5M3RzOG8wbWJhMnBuNGxvZGw0ODJiIn0.eHveP8LHMYyieUxR5j7Hww';
+        var map = new mapboxgl.Map({
+            container: 'map',
+            style: 'mapbox://styles/mapbox/dark-v10',
+            center: [-79.044073, 43.087653],
+            zoom: 3
+        });
+
+        map.on('load', function () {
+            map.addSource('places', {
+                type: 'geojson',
+                data: 'https://raw.githubusercontent.com/mapbox/mapbox-gl-js/main/test/integration/data/places.geojson'
+            });
+            map.addLayer({
+                id: 'places',
+                source: 'places',
+                type: 'heatmap',
+                paint: {
+                    'heatmap-radius': 15,
+                    'heatmap-intensity': 2,
+
+                    //'heatmap-color': [
+                    //    'interpolate',
+                    //    ['linear'],
+                    //    ['heatmap-density'],
+                    //    0, 'rgba(0, 0, 255, 0)',
+                    //    0.1, 'royalblue',
+                    //    0.3, 'cyan',
+                    //    0.5, 'lime',
+                    //    0.7, 'yellow',
+                    //    1, 'red'
+                    //]
+
+                    //'heatmap-color': [
+                    //    'interpolate',
+                    //    ['linear'],
+                    //    ['heatmap-density'],
+                    //    0, 'rgba(33,102,172,0)',
+                    //    0.2, 'rgb(103,169,207)',
+                    //    0.4, 'rgb(209,229,240)',
+                    //    0.6, 'rgb(253,219,199)',
+                    //    0.8, 'rgb(239,138,98)',
+                    //    1, 'rgb(178,24,43)'
+                    //]
+
+                    'heatmap-color': [
+                        'interpolate',
+                        ['linear'],
+                        ['heatmap-density'],
+                        0, 'rgba(0,255,0,0)',
+                        0.5, 'rgb(0,255,255)',
+                        1, 'rgb(255,0,0)'
+                    ],
+
+                    //'heatmap-weight': {
+                    //    'type': 'identity',
+                    //    'property': 'point_count'
+                    //}
+                    'heatmap-opacity': [
+                        'interpolate',
+                        ['linear'],
+                        ['zoom'],
+                        7,
+                        1,
+                        9,
+                        0
+                    ]
+
+
+                }
+            });
+        });
+
+        map.addControl(new mapboxgl.NavigationControl());
+        map.addControl(new mapboxgl.GeolocateControl());
+
+        var layerList = document.getElementById('menu');
+        var inputs = layerList.getElementsByTagName('input');
+
+        function switchLayer(layer) {
+            var layerId = layer.target.id;
+            map.setStyle('mapbox://styles/mapbox/' + layerId);
+        }
+
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].onclick = switchLayer;
+        }
+
+    </script>
+
+</body>
+</html>
