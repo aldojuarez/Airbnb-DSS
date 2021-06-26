@@ -3,11 +3,39 @@
   "features": [
     {
       "type": "Feature",
+      "properties": {
+        "id": 153786,
+        "name": "Villa Dante",
+        "featureclass": "Entire home/apt"
+      },
       "geometry": {
         "type": "Point",
-        "coordinates": [-99.17634,19.41125]
+        "coordinates": [ -99.27335, 19.38399 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 196253,
+        "name": "CONDESA HAUS  B&B",
+        "featureclass": "Entire home/apt"
       },
-      "properties": {}
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -99.17645, 19.41006 ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "id": 265650,
+        "name": "Great space in historical San Rafael",
+        "featureclass": "Entire home/apt"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [ -99.15605, 19.43977 ]
+      }
     }
   ]
 }
